@@ -56,12 +56,30 @@
         .error {
             background-color: #dc3545; /* Red */
         }
+        .alert {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 
 <div class="calculator">
     <h2> Calculator </h2>
+    <!-- Display Validation Errors -->
+    @if($errors->any())
+    <div class="alert">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <form action="/calculator" method="POST">
         @csrf <!-- CSRF protection -->
         <div class="form-group">

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CalculatorRequest;
 use App\Services\Addition;
 use App\Services\Calculator;
 use App\Services\Multiplication;
 use App\Services\Division;
 use App\Services\Subtraction;
-use Illuminate\Http\Request;
 
 class CalculatorController extends Controller
 {
@@ -16,12 +16,14 @@ class CalculatorController extends Controller
         return view('calculator');
     }
 
-    public function calculate(Request $request)
+    public function calculate(CalculatorRequest $request)
     {
+         // Input validation is already handled by CalculatorRequest
         $firstNumber = $request->firstNumber;
         $secondNumber = $request->secondNumber;
         $operation = $request->operation;
 
+         // Calculation logic
         $calculator = new Calculator($firstNumber, $secondNumber);
 
         switch ($operation)
