@@ -41,21 +41,36 @@
         button:hover {
             background-color: #0056b3;
         }
+        .message {
+            padding: 8px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .success {
+            background-color: #28a745; /* Green */
+        }
+
+        .error {
+            background-color: #dc3545; /* Red */
+        }
     </style>
 </head>
 <body>
 
 <div class="calculator">
     <h2> Calculator </h2>
-    <form action="/calculate" method="POST">
+    <form action="/calculator" method="POST">
         @csrf <!-- CSRF protection -->
         <div class="form-group">
             <label for="firstNumber">Number 1:</label>
-            <input type="number" id="firstNumber" name="firstNumber" required>
+            <input type="number" id="firstNumber" name="firstNumber" required value="{{ old('firstNumber') }}">
         </div>
         <div class="form-group">
             <label for="secondNumber">Number 2:</label>
-            <input type="number" id="secondNumber" name="secondNumber" required>
+            <input type="number" id="secondNumber" name="secondNumber" required value="{{ old('secondNumber') }}">
         </div>
         <div class="form-group">
             <label for="operation">Operation:</label>
@@ -68,6 +83,16 @@
         </div>
         <button type="submit">Calculate</button>
     </form>
+    <!-- Result Message -->
+    @if(session('status') == 'success')
+        <div class="message success">
+            {{ session('result') }}
+        </div>
+    @elseif(session('status') == 'error')
+        <div class="message error">
+            {{ session('message') }}
+        </div>
+    @endif
 </div>
 
 </body>
